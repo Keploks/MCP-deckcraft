@@ -45,6 +45,48 @@ La integración se basa en el CLI instalado en `C:\Program Files\ArtCraft\DeckCr
 - Depende de la ruta/instalación estándar del CLI; si DeckCraft está en otra ubicación, las herramientas no lo encontrarán.
 - `deckcraft_comando_app` solo funciona si la GUI se ejecutó con `--control PORT`; si no, devuelve un error con instrucciones.
 - Rutas con caracteres especiales (acentos/OneDrive) dependen de que el CLI reciba la ruta correcta; se aceptan rutas tal cual y se reportan errores claros si no existen.
-- **No verificado en ejecución real:** operaciones que escriben/modifican datos (`render`, `convert`, `run --save/--export`, `app`) no se ejecutaron contra archivos reales del usuario durante la verificación (solo se probaron herramientas de lectura y metadatos). Pueden requerir ajustes según el caso.
+- Verificado con una presentación real (copia): lectura de metadatos, render a PNG, conversión a PDF y agregado de una diapositiva guardada en un archivo nuevo (el original no se modifica). Probado con el modelo DeepSeek V4.1 Flash en opencode. Con Nemotron 3.5 Lightning la herramienta no guardaba el resultado aunque el modelo decía que sí, por lo que conviene verificar siempre el archivo generado.
+- `deckcraft_comando_app` (control de la app abierta) no se probó en la demo.
 - Las herramientas de escritura exigen confirmación (`confirmar=true` o `confirmar_sobrescritura=true`) para reducir riesgos de sobrescritura.
 - No se creó `scripts/preparar-app.mjs`: el uso headless vía CLI no requiere arranque especial; el modo `--control` es opcional y bajo demanda.
+
+## Instalación paso a paso
+
+1. Instala DeckCraft (ArtCraft) en Windows y Node.js.
+2. Clona el repositorio y entra a la carpeta:
+
+```
+git clone https://github.com/Keploks/MCP-deckcraft.git
+cd MCP-deckcraft
+```
+
+3. Instala las dependencias y compila:
+
+```
+npm install
+npm run build
+```
+
+4. Ejecuta las pruebas:
+
+```
+npm test
+```
+
+5. Conecta el servidor a tu cliente MCP (por ejemplo opencode) usando el archivo `opencode.json` del repositorio.
+6. Pide una tarea a la IA con alguno de los ejemplos de la sección anterior.
+
+## Utilidad académica
+
+Este MCP automatiza el trabajo repetitivo con presentaciones: revisar su estructura, renderizar diapositivas, convertirlas a PDF y agregar contenido sin abrir la aplicación a mano. Está pensado para estudiantes que preparan y entregan presentaciones, especialmente en trabajos grupales. Reduce el tiempo operativo y permite dedicar más esfuerzo al contenido y a la calidad de la comunicación.
+
+## Declaración de uso de IA
+
+El código base se generó con el Constructor del `mcp-starter-kit` y con asistencia de IA, y fue revisado y probado por el autor con archivos reales. Modelos usados en opencode: DeepSeek V4.1 Flash y Nemotron 3.5 Lightning. Con Nemotron la herramienta de edición no guardaba el resultado aunque el modelo afirmaba que sí, por lo que se verificó cada archivo generado.
+
+## Seguridad
+
+- No contiene credenciales, claves ni tokens (`.env` está en `.gitignore`).
+- Las herramientas que escriben exigen confirmación explícita.
+- Solo opera sobre las rutas que el usuario indica y no usa red.
+- Recomendación: probar siempre sobre copias de las presentaciones.
