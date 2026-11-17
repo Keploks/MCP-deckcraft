@@ -1,5 +1,7 @@
 # MCP DeckCraft (deckcraft-v3)
 
+**Demostración en video:** https://youtu.be/SMywV3GoD4s
+
 Servidor **MCP** (Model Context Protocol) en TypeScript para controlar **DeckCraft** (ArtCraft) en Windows mediante su CLI oficial `deckcraft-cli.exe` (sin automatización de UI).
 
 ## Qué hace
